@@ -5,7 +5,7 @@ require("dotenv").config();
 app.use("/public", express.static(__dirname + "/public"));
 
 app.get("/", (req, res) => {
-  res.sendFile("views/index.html");
+  res.sendFile(__dirname + "/views/index.html");
 });
 
 app.get("/json", function (req, res) {
