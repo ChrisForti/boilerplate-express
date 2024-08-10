@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-// Uses .env and if loop to manipulate json
+// Uses .env and an if loop to manipulate json
 app.get("/json", function (req, res) {
   let message = "Hello json";
   if (process.env.MESSAGE_STYLE === "uppercase") {
