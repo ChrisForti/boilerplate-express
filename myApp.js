@@ -1,10 +1,10 @@
 let express = require("express");
 let app = express();
+require("dotenv").config();
 
 app.use("/public", express.static(__dirname + "/public"));
-// app.use(express.static("views/index.html"));
 
-app.get("/", (req, res) => {
+app.get("/index", (req, res) => {
   res.sendFile("views/index.html");
 });
 
