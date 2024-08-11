@@ -38,4 +38,11 @@ app.get(
   }
 );
 
+// Get Query Parameter Input from the Client
+app.get("/name", function (req, res) {
+  const firstName = req.query.first;
+  const lastName = req.query.last;
+  res.json({ name: `${firstName} ${lastName}` });
+});
+
 module.exports = app;
