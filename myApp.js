@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-// Uses .env and an if loop to manipulate json
+// Calls .env file and uses an if loop to manipulate json
 app.get("/json", function (req, res) {
   let message = "Hello json";
   if (process.env.MESSAGE_STYLE === "uppercase") {
@@ -24,5 +24,18 @@ app.get("/json", function (req, res) {
   }
   res.json({ message: message });
 });
+
+// Middleware function to add current time to req.time
+app.get(
+  "/now",
+  (req, res, next) => {
+    req.time = new Date().toString();
+    next(); // Pass control to the next function in the chain
+  },
+  (req, res) => {
+    // Handler to respond with JSON object containing req.time
+    res.json({ time: req.time });
+  }
+);
 
 module.exports = app;
