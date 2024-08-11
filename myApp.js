@@ -38,6 +38,12 @@ app.get(
   }
 );
 
+// get route parameter input from client
+app.get("/:word/echo", (req, res) => {
+  const word = req.params.word;
+  res.json({ echo: word });
+});
+
 // Get Query Parameter Input from the Client
 app.get("/name", function (req, res) {
   const firstName = req.query.first;
