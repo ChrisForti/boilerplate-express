@@ -1,6 +1,7 @@
 let express = require("express");
 let app = express();
 require("dotenv").config();
+let bodyParser = require("body-parser");
 
 // calls in middleware
 app.use("/public", express.static(__dirname + "/public"));
@@ -50,5 +51,14 @@ app.get("/name", function (req, res) {
   const lastName = req.query.last;
   res.json({ name: `${firstName} ${lastName}` });
 });
+
+// Mount middleware
+app.use(bodyParser.urlencoded({ extended: false })),
+  app.post("/submit", (req, res) => {
+    // Access the body of the request
+    const { name, age } = req.body;
+    // Do something with the data
+    res.send(`Name: ${name}, Age: ${age}`);
+  });
 
 module.exports = app;
