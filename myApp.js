@@ -12,12 +12,15 @@ app.use("/", (req, res, next) => {
   next();
 });
 
-// route that links root to index.html
+// Mount middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//GET index.html, and serve it aT ROOT
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
-// Calls .env file and uses an if loop to manipulate json
+//GET .env file and uses an if loop to manipulate json
 app.get("/json", function (req, res) {
   let message = "Hello json";
   if (process.env.MESSAGE_STYLE === "uppercase") {
@@ -39,26 +42,31 @@ app.get(
   }
 );
 
-// get route parameter input from client
+//GET route parameter input from client
 app.get("/:word/echo", (req, res) => {
   const word = req.params.word;
   res.json({ echo: word });
 });
 
-// Get Query Parameter Input from the Client
+//GET Query Parameter Input from the Client
 app.get("/name", function (req, res) {
   const firstName = req.query.first;
   const lastName = req.query.last;
   res.json({ name: `${firstName} ${lastName}` });
 });
 
-// Mount middleware
-app.use(bodyParser.urlencoded({ extended: false })),
-  app.post("/submit", (req, res) => {
-    // Access the body of the request
-    const { name, age } = req.body;
-    // Do something with the data
-    res.send(`Name: ${name}, Age: ${age}`);
-  });
+// POST handler for /name endpoint
+app.post("/name", function (req, res) {
+  const firstName = req.body.first;
+  const lastName = req.body.last;
+  res.json({ name: `${firstName} ${lastName}` });
+});
+
+// app.post("/submit", (req, res) => {
+//   // Access the body of the request
+//   const { name, age } = req.body;
+//   // Do something with the data
+//   res.send(`Name: ${name}, Age: ${age}`);
+// });
 
 module.exports = app;
